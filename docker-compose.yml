@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  db:
+    hostname: db
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/data
+    environment:
+      - MYSQL_ROOT_PASSWORD=testytest
+      - MYSQL_USER=testytest
+      - MYSQL_PASSWORD=testytest
+      - MYSQL_DATABASE=testytest
+      - DATADIR=/data
+    command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+
+  test:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    environment:
+      - MIX_ENV=test
+    command: mix test
