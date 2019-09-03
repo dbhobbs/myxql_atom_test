@@ -16,13 +16,22 @@ defmodule MyxqlAtomTest do
 
     MyxqlAtom.Repo.insert_all(MyxqlAtom, stuff)
 
-    assert returned = MyxqlAtom.all(:foo)
+    assert returned = MyxqlAtom.working(:foo)
     assert length(returned) > 0
 
-    assert returned = MyxqlAtom.all(:bar)
+    assert returned = MyxqlAtom.working(:bar)
     assert length(returned) > 0
 
-    assert returned = MyxqlAtom.all(:baz)
+    assert returned = MyxqlAtom.working(:baz)
+    assert length(returned) > 0
+
+    assert returned = MyxqlAtom.broken(:foo)
+    assert length(returned) > 0
+
+    assert returned = MyxqlAtom.broken(:bar)
+    assert length(returned) > 0
+
+    assert returned = MyxqlAtom.broken(:baz)
     assert length(returned) > 0
   end
 end

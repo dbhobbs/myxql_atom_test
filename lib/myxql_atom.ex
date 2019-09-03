@@ -12,10 +12,22 @@ defmodule MyxqlAtom do
     field :desc, :string
   end
 
-  def all(kind) do
+  def broken(kind) do
     query =
-      from f in __MODULE__,
-        where: f.kind == type(^kind, MyxqlAtom.Atom)
+      from f in "foo",
+        where: f.kind == type(^kind, MyxqlAtom.Atom),
+        select: %{kind: f.kind, desc: f.desc}
+
+    Repo.all(query)
+  end
+
+  def working(kind) do
+    kind = Atom.to_string(kind)
+
+    query =
+      from f in "foo",
+        where: f.kind == ^kind,
+        select: %{kind: f.kind, desc: f.desc}
 
     Repo.all(query)
   end
