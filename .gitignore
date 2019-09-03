@@ -22,3 +22,6 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 myxql_atom-*.tar
 
+# Ignore VS Code directories.
+/.elixir_ls/
+/.vscode/
